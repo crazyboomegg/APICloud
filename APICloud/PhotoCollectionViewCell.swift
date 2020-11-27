@@ -14,4 +14,28 @@ class PhotoCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var thu: UILabel!
     @IBOutlet weak var photoImage: UIImageView!
     var imageURL : URL!
+    
+    var photoCollectionViewCellViewModel : PhotoCollectionViewCellViewModel?{
+        didSet{
+            title.text = photoCollectionViewCellViewModel?.titleText
+            id.text = photoCollectionViewCellViewModel?.idText
+            imageURL = URL(string: photoCollectionViewCellViewModel!.imageURL)
+            
+            photoImage.image = photoCollectionViewCellViewModel?.photoImage.image
+            
+            // photoImage.image = photoCollectionViewCellViewModel?.image
+            
+            
+            /*
+            NetworkController.fetchImage(url: self.imageURL ) { (image) in
+                if self.imageURL == self.imageURL, let image = image  {
+                       DispatchQueue.main.async {
+                           self.photoImage.image = image
+                       }
+                   }
+            }
+            */
+        }
+    }
+  
 }

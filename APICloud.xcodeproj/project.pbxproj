@@ -21,6 +21,8 @@
 		7D1B4B86256657F9008C5498 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B4B85256657F9008C5498 /* NetworkUtility.swift */; };
 		7D1B4B8B256658B7008C5498 /* JsonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B4B8A256658B7008C5498 /* JsonData.swift */; };
 		7D1C075225666E7E0069FF47 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C075125666E7E0069FF47 /* PhotoCollectionViewCell.swift */; };
+		7DFB0893257102D00089861F /* PhotoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFB0892257102D00089861F /* PhotoCollectionViewModel.swift */; };
+		7DFB08982571103B0089861F /* PhotoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFB08972571103B0089861F /* PhotoCollectionViewCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		7D1B4B85256657F9008C5498 /* NetworkUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
 		7D1B4B8A256658B7008C5498 /* JsonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonData.swift; sourceTree = "<group>"; };
 		7D1C075125666E7E0069FF47 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		7DFB0892257102D00089861F /* PhotoCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewModel.swift; sourceTree = "<group>"; };
+		7DFB08972571103B0089861F /* PhotoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 				7D1B4B8A256658B7008C5498 /* JsonData.swift */,
 				7D1C075125666E7E0069FF47 /* PhotoCollectionViewCell.swift */,
 				7D0659DE256E44CC009C181A /* NetworkController.swift */,
+				7DFB0892257102D00089861F /* PhotoCollectionViewModel.swift */,
+				7DFB08972571103B0089861F /* PhotoCollectionViewCellViewModel.swift */,
 			);
 			path = APICloud;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D1B4B4925663AD2008C5498 /* ViewController.swift in Sources */,
+				7DFB08982571103B0089861F /* PhotoCollectionViewCellViewModel.swift in Sources */,
 				7D1C075225666E7E0069FF47 /* PhotoCollectionViewCell.swift in Sources */,
 				7D1B4B8B256658B7008C5498 /* JsonData.swift in Sources */,
 				7D1B4B86256657F9008C5498 /* NetworkUtility.swift in Sources */,
@@ -285,6 +292,7 @@
 				7D1B4B4725663AD2008C5498 /* SceneDelegate.swift in Sources */,
 				7D1B4B7E25664CD3008C5498 /* PhotoCollectionViewController.swift in Sources */,
 				7D0659DF256E44CC009C181A /* NetworkController.swift in Sources */,
+				7DFB0893257102D00089861F /* PhotoCollectionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

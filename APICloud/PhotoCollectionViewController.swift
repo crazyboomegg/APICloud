@@ -10,8 +10,12 @@ import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
     
+    var viewModel: PhotoCollectionViewModel = {
+        return PhotoCollectionViewModel()
+    }()
+    
     var spinner = UIActivityIndicatorView()
-    var photos = [Photo]()
+    // var photos = [Photo]()
     
     @IBOutlet var myCollectionView : UICollectionView!
   
@@ -20,6 +24,28 @@ class PhotoCollectionViewController: UICollectionViewController {
     var screenHeight: CGFloat!
     
     override func viewDidLoad() {
+        
+        viewModel.updateLoadingStauts = { [weak self] () in
+            DispatchQueue.main.async {
+                let isLoading = self?.viewModel.isLoading ?? false
+                if isLoading {
+                    self?.spinner.startAnimating()
+                }
+                else {
+                    self?.spinner.stopAnimating()
+                }
+            }
+        }
+        
+        
+        
+        viewModel.reloadCollectionViewClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.myCollectionView.reloadData()
+            }
+        }
+        
+        // -------------------------------------
         super.viewDidLoad()
         print("collectionview 讀取成功")
         
@@ -48,66 +74,29 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView.dataSource = self
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-               layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-               layout.itemSize = CGSize(width: screenWidth/4, height: screenWidth/4)
-               layout.minimumInteritemSpacing = 0
-               layout.minimumLineSpacing = 0
-              myCollectionView!.collectionViewLayout = layout
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: screenWidth/4, height: screenWidth/4)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        myCollectionView!.collectionViewLayout = layout
         
-      /*
-        let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        // let width = (view.bounds.width - 100) / 2
-        
-        layout?.sectionInset = UIEdgeInsets(top: -1, left: -1, bottom: -1, right: -1) // section與section之間的距離(如果只有一個section，可以想像成frame)
-        layout?.itemSize = CGSize(width: view.bounds.width/4, height: view.bounds.width/4) // cell的寬、高
-        layout?.scrollDirection = UICollectionView.ScrollDirection.vertical
 
-        layout?.minimumLineSpacing = 0;
-        layout?.minimumInteritemSpacing = 0;
- */
-        
-        
-        fetchJson()
+        viewModel.initFetch()
         
     }
         
-    func fetchJson() {
-        print("fetch")
-    
-        let apiUrl = "https://jsonplaceholder.typicode.com/photos"
-        
-  
-
-        if let url = URL (string: apiUrl ) {
-           print("url")
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let data = data, let jsonData = try? JSONDecoder().decode([Photo].self, from: data) {
-                    
-                    
-                    
-                    print("url:: " + apiUrl)
-                    print("data:: ", jsonData.count)
-                    
-                    self.photos = jsonData
-                    print("stopSpinning")
-                    DispatchQueue.main.async {
-                        self.spinner.stopAnimating()
-                        self.collectionView.reloadData()
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
+ 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("collectionview_return_count:: ")
-        print(photos.count)
-        return photos.count
+        print(viewModel.numberOfCells)
+        return viewModel.numberOfCells
+        
     }
-    
+  
+    /*
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+       print(" override func collectionViewvggg")
         let spinner = UIActivityIndicatorView()
         spinner.style = .medium
         spinner.color = .systemBlue
@@ -142,6 +131,18 @@ class PhotoCollectionViewController: UICollectionViewController {
                    }
             }
 
+        return cell
+    }
+    */
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PHOTO_CELL", for: indexPath) as! PhotoCollectionViewCell
+        
+        let cellVM = viewModel.getCellViewModel(at: indexPath)
+        
+        cell.photoCollectionViewCellViewModel = cellVM
         return cell
     }
 
