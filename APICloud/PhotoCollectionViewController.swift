@@ -8,23 +8,41 @@
 import Foundation
 import UIKit
 
-
 class PhotoCollectionViewController: UICollectionViewController {
     
+    var spinner = UIActivityIndicatorView()
     var photos = [Photo]()
+    
     @IBOutlet var myCollectionView : UICollectionView!
   
-        var screenSize: CGRect!
-        var screenWidth: CGFloat!
-        var screenHeight: CGFloat!
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("collectionview 讀取成功")
         
+        spinner.style = .medium
+        spinner.color = .systemBlue
+        spinner.hidesWhenStopped = true
+        print("spinner.hidesWhenStopped = true")
+
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([ spinner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300.300), spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+        
+       
+        spinner.startAnimating()
+        print("spinner.startAnimating()")
+        
+
+        
+        
         screenSize = UIScreen.main.bounds
-                screenWidth = screenSize.width
-                screenHeight = screenSize.height
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
     
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -49,28 +67,31 @@ class PhotoCollectionViewController: UICollectionViewController {
  */
         
         
-        
         fetchJson()
+        
     }
-    
+        
     func fetchJson() {
         print("fetch")
     
         let apiUrl = "https://jsonplaceholder.typicode.com/photos"
-
         
+  
 
         if let url = URL (string: apiUrl ) {
            print("url")
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data, let jsonData = try? JSONDecoder().decode([Photo].self, from: data) {
                     
+                    
+                    
                     print("url:: " + apiUrl)
                     print("data:: ", jsonData.count)
                     
                     self.photos = jsonData
-                    
+                    print("stopSpinning")
                     DispatchQueue.main.async {
+                        self.spinner.stopAnimating()
                         self.collectionView.reloadData()
                     }
                 }
@@ -86,36 +107,45 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .medium
+        spinner.color = .systemBlue
+        spinner.hidesWhenStopped = true
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PHOTO_CELL", for: indexPath) as! PhotoCollectionViewCell
+        
 
         let photo = photos[indexPath.item]
 
-
-        var imageUrl = URL(string: photo.url)
+        
+        let imageUrl = URL(string: photo.url!)
 
         cell.title.text = photo.title
-        cell.id.text = String (photo.id)
+        cell.id.text = String (photo.id!)
         cell.imageURL = imageUrl
         cell.photoImage.image = nil
+        
+        cell.addSubview(spinner)
+        
+        NSLayoutConstraint.activate([ spinner.topAnchor.constraint(equalTo: cell.safeAreaLayoutGuide.topAnchor, constant: 50.50), spinner.centerXAnchor.constraint(equalTo: cell.centerXAnchor)])
 
-        
-        NetworkUtility.downloadImage(url: cell.imageURL) { (image) in
-            if cell.imageURL == imageUrl, let image = image  {
-                DispatchQueue.main.async {
-                    cell.photoImage.image = image
-                }
+ 
+            NetworkController.fetchImage(url: cell.imageURL ) { (image) in
+                   if cell.imageURL == imageUrl, let image = image  {
+                       DispatchQueue.main.async {
+                           cell.photoImage.image = image
+                           spinner.stopAnimating()
+                       }
+                   }
             }
-        }
-        
+
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let sideSize = (traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular) ? 80.0 : 128.0
-        return CGSize(width: sideSize, height: sideSize)
-    }
+
+   
     
 }
 

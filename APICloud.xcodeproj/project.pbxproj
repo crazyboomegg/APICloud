@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D0659DF256E44CC009C181A /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0659DE256E44CC009C181A /* NetworkController.swift */; };
 		7D1B4B4525663AD2008C5498 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B4B4425663AD2008C5498 /* AppDelegate.swift */; };
 		7D1B4B4725663AD2008C5498 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B4B4625663AD2008C5498 /* SceneDelegate.swift */; };
 		7D1B4B4925663AD2008C5498 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B4B4825663AD2008C5498 /* ViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D0659DE256E44CC009C181A /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		7D1B4B4125663AD2008C5498 /* APICloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APICloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1B4B4425663AD2008C5498 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D1B4B4625663AD2008C5498 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				7D1B4B85256657F9008C5498 /* NetworkUtility.swift */,
 				7D1B4B8A256658B7008C5498 /* JsonData.swift */,
 				7D1C075125666E7E0069FF47 /* PhotoCollectionViewCell.swift */,
+				7D0659DE256E44CC009C181A /* NetworkController.swift */,
 			);
 			path = APICloud;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				7D1B4B4F25663AD2008C5498 /* APICloud.xcdatamodeld in Sources */,
 				7D1B4B4725663AD2008C5498 /* SceneDelegate.swift in Sources */,
 				7D1B4B7E25664CD3008C5498 /* PhotoCollectionViewController.swift in Sources */,
+				7D0659DF256E44CC009C181A /* NetworkController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
